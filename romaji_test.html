@@ -382,6 +382,48 @@ const quizData = [
     { char: 'ピャ', romaji: ['pya'], type: '가타카나', category: '요음', correct: 0, incorrect: 0, pair: 'ぴゃ' },
     { char: 'ピュ', romaji: ['pyu'], type: '가타카나', category: '요음', correct: 0, incorrect: 0, pair: 'ぴゅ' },
     { char: 'ピョ', romaji: ['pyo'], type: '가타카나', category: '요음', correct: 0, incorrect: 0, pair: 'ぴょ' },
+    
+    // --- 추가된 외래어(특수음) 33개 ---
+    // a행
+    { char: 'ファ', romaji: ['fa'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ヴァ', romaji: ['va'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ツァ', romaji: ['tsa'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'クァ', romaji: ['kwa'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    // i행
+    { char: 'ティ', romaji: ['ti'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ディ', romaji: ['di'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'フィ', romaji: ['fi'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ヴィ', romaji: ['vi'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ウィ', romaji: ['wi'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ツィ', romaji: ['tsi'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'クィ', romaji: ['kwi'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    // u행
+    { char: 'トゥ', romaji: ['tu'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ドゥ', romaji: ['du'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ヴ', romaji: ['vu'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    // e행
+    { char: 'フェ', romaji: ['fe'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ヴェ', romaji: ['ve'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ウェ', romaji: ['we'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ツェ', romaji: ['tse'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'クェ', romaji: ['kwe'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    // o행
+    { char: 'フォ', romaji: ['fo'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ヴォ', romaji: ['vo'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ウォ', romaji: ['wo'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ツォ', romaji: ['tso'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'クォ', romaji: ['kwo'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    // yu행
+    { char: 'テュ', romaji: ['tyu'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'デュ', romaji: ['dyu'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'フュ', romaji: ['fyu'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ヴュ', romaji: ['vyu'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    // 우측 독립
+    { char: 'グァ', romaji: ['gwa'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'イェ', romaji: ['ye'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'シェ', romaji: ['she'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'チェ', romaji: ['che'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
+    { char: 'ジェ', romaji: ['je'], type: '가타카나', category: '외래어', correct: 0, incorrect: 0 },
 ];
 
 // --- 애플리케이션 상태 변수 ---
@@ -425,6 +467,7 @@ function createWeightedShuffledData() {
         dakuon: quizData.filter(item => item.type === '가타카나' && item.category === '탁음'),
         handakuon: quizData.filter(item => item.type === '가타카나' && item.category === '반탁음'),
         youon: quizData.filter(item => item.type === '가타카나' && item.category === '요음'),
+        foreign: quizData.filter(item => item.type === '가타카나' && item.category === '외래어'), // 외래어 추가
     };
 
     let weightedList = [];
@@ -439,26 +482,29 @@ function createWeightedShuffledData() {
         return result;
     };
 
-    // 청음 (총 12문제): 히라가나 6개, 가타카나 6개
-    weightedList.push(...getRandomItems(hira.seion, 6));
-    weightedList.push(...getRandomItems(kata.seion, 6));
+    // 1. 청음 (총 10문제): 히라가나 5개, 가타카나 5개
+    weightedList.push(...getRandomItems(hira.seion, 5));
+    weightedList.push(...getRandomItems(kata.seion, 5));
 
-    // 탁음 (총 4문제): 히라가나 2개, 가타카나 2개
+    // 2. 탁음 (총 4문제): 히라가나 2개, 가타카나 2개
     weightedList.push(...getRandomItems(hira.dakuon, 2));
     weightedList.push(...getRandomItems(kata.dakuon, 2));
 
-    // 반탁음 (총 1문제): 50% 확률로 히/카 중 1개
+    // 3. 반탁음 (총 1문제): 50% 확률로 히/카 중 1개
     if (Math.random() < 0.5) {
         weightedList.push(...getRandomItems(hira.handakuon, 1));
     } else {
         weightedList.push(...getRandomItems(kata.handakuon, 1));
     }
     
-    // 요음 (총 3문제): 1~2개씩 랜덤 배분 (히1+카2 or 히2+카1)
+    // 4. 요음 (총 3문제): 1~2개씩 랜덤 배분
     const hiraYouonCount = Math.random() < 0.5 ? 1 : 2;
     const kataYouonCount = 3 - hiraYouonCount;
     weightedList.push(...getRandomItems(hira.youon, hiraYouonCount));
     weightedList.push(...getRandomItems(kata.youon, kataYouonCount));
+
+    // 5. 외래어 (총 2문제): 가타카나 외래어에서 2개 추출
+    weightedList.push(...getRandomItems(kata.foreign, 2));
 
     shuffleArray(weightedList);
     return weightedList;
@@ -490,17 +536,17 @@ function displayQuestion() {
 
     questionRomajiElement.textContent = currentQuestion.romaji[0];
     
-    // [수정 4] 뱃지 텍스트를 일본어로 표시
     questionTypeElement.textContent = currentQuestion.type === '히라가나' ? 'ひらがな' : 'カタカナ';
 
     // 1. 보기 N개 생성
     let options = [];
     options.push(currentQuestion.char); // 정답 추가
     if (currentQuestion.pair) {
-        options.push(currentQuestion.pair); // 짝 추가
+        options.push(currentQuestion.pair); // 짝 추가 (외래어는 pair가 없으므로 건너뜀)
     }
 
     // 2. 랜덤 보기 추가 (N-2개 또는 N-1개)
+    // 외래어는 pair가 없으므로 정답 1개 + 오답 N-1개가 됨
     const randomPool = allChars.filter(char => 
         char !== currentQuestion.char && char !== currentQuestion.pair
     );
@@ -548,7 +594,7 @@ function checkAnswer(event) {
         if (btn.dataset.char === currentQuestion.char) {
             btn.classList.add('correct'); 
         }
-        else if (btn.dataset.char === currentQuestion.pair) {
+        else if (currentQuestion.pair && btn.dataset.char === currentQuestion.pair) {
             btn.classList.add('pair');
         }
     });
